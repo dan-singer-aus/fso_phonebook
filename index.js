@@ -27,12 +27,11 @@ let persons =[
 ]
 
 app.use(express.json())
-
 morgan.token('body', req => {
     return JSON.stringify(req.body)
   })
-
 app.use(morgan(':method :url :status :body - :response-time ms'))
+app.use(express.static('dist'));
 
 app.get('/', (request, response) => {
     response.send('<h1>hello world!!</h1>');
@@ -94,5 +93,5 @@ app.post('/api/persons', (request, response)=> {
 
 } )
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => console.log(`Running on port: ${PORT}`))
